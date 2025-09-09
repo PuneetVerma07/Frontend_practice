@@ -1,68 +1,19 @@
-let form = document.querySelector("form");
-let username = document.querySelector("#name");
-let role = document.querySelector("#role");
-let bio = document.querySelector("#bio");
-let photo = document.querySelector("#photo");
+function CreatePencil(name, price, color, company) {
+  this.name = name;
+  this.price = price;
+  this.color = color;
+  this.company = company;
+}
 
-const userManager = {
-  users: [],
-  init: function () {
-    form.addEventListener("submit", this.submitForm.bind(this));
-  },
-  submitForm: function (e) {
-    e.preventDefault();
-    this.addUser();
-  },
-  addUser: function () {
-    this.users.push({
-      username: username.value,
-      role: role.value,
-      bio: bio.value,
-      photo: photo.value,
-    });
+CreatePencil.prototype.write = function (text) {
+  let h1 = document.createElement("h1")
 
-    form.reset();
-    this.renderUi();
-  },
-  renderUi: function () {
-    document.querySelector(".users").innerHTML = "";
-    this.users.forEach(function (user) {
-      const card = document.createElement("div");
-      card.className =
-        "bg-white/90 background-blur rounded-2xl shadow-xl p-8 flex flex-col items-center border border-blue-100 hover:scale-105 transition";
+  h1.textContent = text;
+  h1.style.color = this.color;
 
-      //image
-      const img = document.createElement("img");
-      img.className =
-        "w-28 h-28 rounded-full object-cover mb-5 border-4 border-blue-200 shadow";
-      img.src = user.photo;
-      img.alt = "User photo";
-      card.appendChild(img);
+  document.body.append(h1)
+}
 
-      //Name
-      const name = document.createElement("h2");
-      name.className = "text-2xl font-bold mb-1 text-blue-700";
-      name.textContent = user.username;
-      card.appendChild(name);
+let natPencil = new CreatePencil("natraj", 10, "white", "nat")
+let domPencil = new CreatePencil("doms", 10, "red", "dom's")
 
-      //Role
-      const role = document.createElement("p");
-      role.className = "text-purple-500 mb-2 font-medium";
-      role.textContent = user.role;
-      card.appendChild(role);
-
-      //Description
-      const desc = document.createElement("p")
-      desc.className = "text-gray-700 text-center"
-      desc.textContent = user.bio
-      card.appendChild(desc)
-
-      //finally append the card whenever needed, for example:
-
-      document.querySelector(".users").appendChild(card)
-    });
-  },
-  removeUser: function () {},
-};
-
-userManager.init();
