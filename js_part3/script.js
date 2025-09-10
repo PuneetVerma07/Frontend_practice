@@ -1,31 +1,18 @@
-function profileLekarAao(username, cb) {
-    setTimeout(function () {
-        console.log("Fetching profile data...")
-        console.log(`fetched profile is : ${username}`)
-        cb({_id : 2131, username, age : 24, emai : "a@a.ocm"});
-    }, 2000)
-}
-
-function sarePostLekarAao(id, cb) {
-    console.log("Fetching all posts...")
+let pr = new Promise(function (res, rej) {
     setTimeout(() => {
-        cb({_id : id, posts : ["hey", "hello", "good morning"]})
-    }, 2000)
-}
-
-function savedPostNikalo(id, cb) {
-    setTimeout(() => {
-        console.log("Fetching saved Posts")
-        cb({_id : id, saved : [1,2,3,4,5,3,4,232,43]})
-    }, 2000)
-}
-
-profileLekarAao("harsh", function (data) {
-    console.log(data)
-    sarePostLekarAao(data._id, function (posts) {
-        console.log(posts)
-        savedPostNikalo(data._id, function (saved) {
-            console.log(saved)
-        })
-    })
+        let rn = Math.floor(Math.random() * 10)
+        if(rn > 5) res("resolved with " + rn)
+        else rej("rejected with " + rn)
+    }, 3000)
 })
+
+async function abcd() {
+    try {
+        let val = await pr;
+        console.log(val)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+abcd();
